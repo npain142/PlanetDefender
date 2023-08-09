@@ -41,13 +41,13 @@ public class Vector2D {
     }
 
     public void rotate(double deg, Vector2D anchor) {
-        Vector2D rot = anchor.sub(this);
-        rot.rotate(deg);
-        Vector2D res = anchor.add(rot);
-
-        setX(res.getX());
-        setY(res.getY());
+        Vector2D s = this.sub(anchor);
+        s.rotate(deg);
+        Vector2D p = s.add(anchor);
+        setX(p.getX());
+        setY(p.getY());
     }
+
     public void setX(float x) {
         if (translationVector != null) {
             this.x = x + translationVector.getX();
