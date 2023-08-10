@@ -8,6 +8,7 @@ public class Vector2D {
     private float x, y;
     private Vector2D translationVector = null;
 
+
     public Vector2D(float x, float y) {
         setX(x);
         setY(y);
@@ -31,11 +32,14 @@ public class Vector2D {
     public Vector2D sub(Vector2D v) {
         return new Vector2D(getX() - v.getX(), getY() - v.getY());
     }
+    public Vector2D scale(float scaleFactor) {
+        return new Vector2D(getX() * scaleFactor, getY() * scaleFactor);
+    } 
     public void rotate(double deg) {
         double radiant = Math.toRadians(deg);
         
         float x = (float) (getX() * Math.cos(radiant) - getY() * Math.sin(radiant));
-        float y = (float) (getX() * Math.sin(radiant) - getY() * Math.cos(radiant));
+        float y = (float) (getX() * Math.sin(radiant) + getY() * Math.cos(radiant));
 
         
 
