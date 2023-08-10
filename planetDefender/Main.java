@@ -8,9 +8,10 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Cannon c1 = new Cannon(100, 150);
+        Cannon c1 = new Cannon(150, 100);
         System.out.println(c1);
-        c1.rotateAroundPlanet(0, 100);
+        //c1.rotate(90, new Vector2D(100, 100));
+        c1.rotateAroundPlanet(100, 200);
         System.out.println(c1);
 
         /*Vector2D v1 = new Vector2D(100, 150);

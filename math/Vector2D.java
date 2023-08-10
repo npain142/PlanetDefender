@@ -33,12 +33,30 @@ public class Vector2D {
     }
     public void rotate(double deg) {
         double radiant = Math.toRadians(deg);
-
+        
         float x = (float) (getX() * Math.cos(radiant) - getY() * Math.sin(radiant));
         float y = (float) (getX() * Math.sin(radiant) - getY() * Math.cos(radiant));
+
+        
+
         setX(x);
         setY(y);
     }
+
+    public void rotate(float x, float y) {
+        Vector2D v = new Vector2D(x, y);
+
+        
+        double Vx = (this.scalarProduct(v))/(v.getLength()*this.getLength());
+
+        double deg = Math.acos(Vx);
+        deg = Math.toDegrees(deg);
+        System.out.println("Degrees: " + deg);
+
+
+        rotate(deg);
+    }
+
 
     public void rotate(double deg, Vector2D anchor) {
         Vector2D s = this.sub(anchor);
@@ -61,6 +79,11 @@ public class Vector2D {
         } else {
             this.y = y;
         }
+
+    }
+    public float scalarProduct(Vector2D v) {
+
+        return getX()*v.getX() + getY()*v.getY();
 
     }
     public float getX() {

@@ -6,7 +6,7 @@ public class Cannon extends Vector2D {
 
     private float width, height;
     public Vector2D planetCenter = new Vector2D(100, 100);
-    public Vector2D center = new Vector2D((getX() + this.getWidth()) / 2, (getY() + this.getHeight()) / 2);
+    public Vector2D cannonCenter = new Vector2D((getX() + this.getWidth()) / 2, (getY() + this.getHeight()) / 2);
 
     public Cannon(float x, float y) {
         super(x, y);
@@ -16,20 +16,31 @@ public class Cannon extends Vector2D {
     }
 
     public void rotateAroundPlanet(float x, float y) {
-        float a = planetCenter.sub(new Vector2D(x, y)).getLength();
-        float b = planetCenter.sub(this).getLength();
-        float c = (float) Math.sqrt(a*a + b*b);
+        
+        Vector2D v = new Vector2D(x, y);
 
-        double Vx = Math.sin(a/c);
-        double deg = Math.asin(Vx);
+        Vector2D centerA = this.sub(planetCenter);
+        Vector2D centerB = v.sub(planetCenter);
 
 
-        rotate(deg * 100, planetCenter);
+        double Vx = (centerA.scalarProduct(centerB))/(centerA.getLength()*centerB.getLength());
+
+        double deg = Math.acos(Vx);
+        deg = Math.toDegrees(deg);
+        // double deg = Math.acos(Vx);
+        
+        
+
+        System.out.println("Degrees: " + deg);
+        rotate(deg, planetCenter);
 
     }
 
+    
+
+
     private Vector2D getFront() {
-        return center;
+        return cannonCenter;
     }
 
     public float getWidth() {
