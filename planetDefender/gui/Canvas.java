@@ -2,56 +2,54 @@ package planetDefender.gui;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
-import javax.sound.sampled.Line;
 import javax.swing.JPanel;
 
 import math.Vector2D;
 import math.primitives.Line2D;
 
-public class Canvas extends JPanel {
-    ArrayList<Line2D> lines = new ArrayList<>();
+public class Canvas extends JPanel implements MouseMotionListener{
     int counter = 1;
-
+    Cannon cannon = new Cannon(Planet.center, Planet.center);
+    public static Dimension dim = new Dimension(500, 500);
     public Canvas() {
-        this.setPreferredSize(new Dimension(500, 500));
-        Timer t = new Timer();
-            TimerTask task = new TimerTask() {
-
-                @Override
-                public void run() {
-                    
-                    repaint();
-                }
-                
-            };
-        t.scheduleAtFixedRate(task, 100, 1);    
+        this.setPreferredSize(dim);
+        addMouseMotionListener(this);
+           
     }
-
-    public void addLine(Line2D line) {
-        Vector2D start = new Vector2D(line.getStart().getX(), getPreferredSize().height - line.getStart().getY());
-        Vector2D end = new Vector2D(line.getEnd().getX(), getPreferredSize().height - line.getEnd().getY());
-        lines.add(new Line2D(start, end));
-        
-    }
-
-     
-    
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.drawOval(250 - 12, 250 -12, 25, 25);
+        g.drawLine((int) cannon.getStart().getX(), (int) cannon.getStart().getY(), (int) cannon.getEnd().getX(), (int) cannon.getEnd().getY());
         
-        for (Line2D l : lines) {
-            g.fillOval( (int)l.getStart().getX() - 5, (int) l.getStart().getY() - 5, 10, 10);
-            g.drawLine((int)l.getStart().getX(), (int) l.getStart().getY(), (int) l.getEnd().getX(), (int) l.getEnd().getY());
-            l.rotate(1);
-        }
         
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // TODO Auto-generated method stub
+            Vector2D nV = new Vector2D(e.getX(), e.getY());
+            Vector2D v = nV.sub(cannon.getStart());
+            float len = v.getLength();
+            float x = 50/len;
+            System.out.println(v.scale(x).add(cannon.getStart()));
+            System.out.println("Length: " + len);
+            System.out.println("factor " + x);
+            
+            cannon.setEnd(v.scale(x).add(cannon.getStart()));
+            
+            repaint();
         
     }
 

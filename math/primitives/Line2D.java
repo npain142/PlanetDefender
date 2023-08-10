@@ -1,7 +1,11 @@
 package math.primitives;
 
 
+
+
 import math.Vector2D;
+import planetDefender.gui.Canvas;
+import planetDefender.gui.Planet;
 
 public class Line2D {
 
@@ -22,11 +26,17 @@ public class Line2D {
     public void rotate(float deg) {
         Vector2D center = getCenter();
         
-        start.rotate(deg, center);
-        end.rotate(deg, center);
-        
-        
-        
+        start.rotate(-deg, center);
+        end.rotate(-deg, center);
+    }
+
+    public void rotate(float deg, Vector2D anchor) {
+        start.rotate(deg, anchor);
+        end.rotate(deg, anchor);
+    }
+
+    public void rotate(float x, float y) {
+        end.rotate(x, y, Planet.center);
     }
 
 

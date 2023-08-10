@@ -14,7 +14,9 @@ public class Vector2D {
         setY(y);
     }
 
-
+    public void setLength(float l) {
+        
+    }
     public float getLength() {
         return (float) Math.sqrt(x*x + y*y);
     }
@@ -50,15 +52,44 @@ public class Vector2D {
     public void rotate(float x, float y) {
         Vector2D v = new Vector2D(x, y);
 
+        double nenner = (v.getLength() * this.getLength());
+        if (nenner == 0)
+            nenner = .1;
+
+
+        double Vx = (this.scalarProduct(v))/nenner;
+
         
-        double Vx = (this.scalarProduct(v))/(v.getLength()*this.getLength());
 
         double deg = Math.acos(Vx);
         deg = Math.toDegrees(deg);
-        System.out.println("Degrees: " + deg);
-
-
+        System.out.println(deg);
         rotate(deg);
+    }
+
+    public void rotate(float x, float y, Vector2D anchor) {
+
+        Vector2D v = new Vector2D(x, y);
+        Vector2D centerA = this.sub(anchor);
+        Vector2D centerB = v.sub(anchor);
+        
+        double Vx = (centerA.scalarProduct(centerB))/(centerA.getLength()*centerB.getLength());
+        
+
+
+        double deg = Math.acos(Vx);
+
+
+        deg = Math.toDegrees(deg);
+        //double deg = Math.acos(Vx);
+
+        if (y <= this.getY() && x <= this.getX()) {
+            deg = -deg;
+        }
+
+
+        rotate(deg, anchor);
+
     }
 
 
