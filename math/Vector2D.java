@@ -1,7 +1,9 @@
 package math;
 
 
+import planetDefender.gui.Planet;
 
+import javax.print.attribute.standard.Finishings;
 
 public class Vector2D {
 
@@ -63,40 +65,52 @@ public class Vector2D {
 
         double deg = Math.acos(Vx);
         deg = Math.toDegrees(deg);
-        System.out.println(deg);
         rotate(deg);
     }
 
-    public void rotate(float x, float y, Vector2D anchor) {
+    public void rotate(float x, float y, Vector2D anchor, boolean n) {
+
 
         Vector2D v = new Vector2D(x, y);
         Vector2D centerA = this.sub(anchor);
         Vector2D centerB = v.sub(anchor);
-        
+
+        for (float i = .01f; i <= 1; i+=.01) {
+            if (this.scale(i).equals(v))return;
+        }
+
+
         double Vx = (centerA.scalarProduct(centerB))/(centerA.getLength()*centerB.getLength());
-        
+
+        if (Vx == 0 || Double.isNaN(Vx)) {
+            return;
+        }
 
 
+        double s = Math.cos(Vx);
         double deg = Math.acos(Vx);
 
 
         deg = Math.toDegrees(deg);
-        //double deg = Math.acos(Vx);
 
-        if (y <= this.getY() && x <= this.getX()) {
+        if (n)
             deg = -deg;
-        }
+        //double deg = Math.acos(Vx);
+        System.out.println(deg);
 
 
-        rotate(deg, anchor);
+        if (Double.isNaN(deg))
+            return;
 
+        rotate(-deg, anchor);
     }
 
 
     public void rotate(double deg, Vector2D anchor) {
         Vector2D s = this.sub(anchor);
         s.rotate(deg);
-        Vector2D p = s.add(anchor);
+        Vector2D p = anchor.add(s);
+
         setX(p.getX());
         setY(p.getY());
     }

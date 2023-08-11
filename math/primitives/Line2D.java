@@ -31,12 +31,22 @@ public class Line2D {
     }
 
     public void rotate(float deg, Vector2D anchor) {
-        start.rotate(deg, anchor);
-        end.rotate(deg, anchor);
+        start.rotate(-deg, anchor);
+        end.rotate(-deg, anchor);
     }
 
-    public void rotate(float x, float y) {
-        end.rotate(x, y, Planet.center);
+    public void rotate(float x, float y, boolean b) {
+
+
+
+
+        start.rotate(x, y, Planet.center, b);
+
+        end.rotate(x, y, Planet.center, b);
+
+
+
+
     }
 
 

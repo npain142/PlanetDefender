@@ -17,7 +17,7 @@ public class Main {
         static Canvas c = new Canvas();
     public static void main(String[] args) {
             
-            
+
             Window w = new Window();
             
             Vector2D v = new Vector2D(200, 200);
@@ -28,6 +28,9 @@ public class Main {
             
             
             w.add(c);
+
+
+
             // TimerTask task = new TimerTask() {
 
             //     @Override
@@ -48,14 +51,19 @@ public class Main {
         //c1.rotate(90, new Vector2D(100, 100));
         // c1.rotateAroundPlanet(100, 200);
         // System.out.println(c1);
+        /*
+        Vector2D v1 = new Vector2D(250, 250);
+        Vector2D v2 = new Vector2D(350, 350);
+        Vector2D v3 = v2.sub(v1);
+        Line2D l = new Line2D(v1, v2);
+        //v2.rotate(0, 200, v1);
 
-        // Vector2D v1 = new Vector2D(100, 100);
-        // Vector2D v2 = new Vector2D(200, 200);
-        // Vector2D v3 = v2.sub(v1);
-        // System.out.println(v1);
-        // v1.rotate(90,  new Vector2D(200, 200));
-        // System.out.println(v1);
-    }
+
+        System.out.println(l.getStart() + " " + l.getEnd());
+
+            */
+        }
+
 
 
     
